@@ -8,6 +8,9 @@ function App() {
 
   const decipherLoop = function () {
     console.log(userInput);
+    for (let char of userInput) {
+      console.log(char);
+    }
   };
 
   return (
