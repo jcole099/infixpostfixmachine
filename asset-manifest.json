@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/infixpostfixmachine/static/css/main.e133abbb.css",
+    "main.js": "/infixpostfixmachine/static/js/main.ea06b590.js",
+    "static/js/787.b14c9f7c.chunk.js": "/infixpostfixmachine/static/js/787.b14c9f7c.chunk.js",
+    "static/media/logo.svg": "/infixpostfixmachine/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "index.html": "/infixpostfixmachine/index.html",
+    "main.e133abbb.css.map": "/infixpostfixmachine/static/css/main.e133abbb.css.map",
+    "main.ea06b590.js.map": "/infixpostfixmachine/static/js/main.ea06b590.js.map",
+    "787.b14c9f7c.chunk.js.map": "/infixpostfixmachine/static/js/787.b14c9f7c.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e133abbb.css",
+    "static/js/main.ea06b590.js"
+  ]
+}
