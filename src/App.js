@@ -6,7 +6,7 @@ function App() {
   const year = new Date().getFullYear();
   const [userInput, setUserInput] = useState('');
   var userData = [];
-  let convertInfix = false; //used for validation of parenthesis. Set to true if user is trying to convert Infix -> Postfix TODO: implement functionality to change this value when tabs change
+  let convertInfix = true; //used for validation of parenthesis. Set to true if user is trying to convert Infix -> Postfix TODO: implement functionality to change this value when tabs change
 
   function isNumber(char) {
     if (
@@ -69,160 +69,143 @@ function App() {
     }
   }
 
+  /////////////////////////////////////////////
+  // decipherLoop
+  //
+  // Handles converting a string to a data array.
+  // Checks for basic syntax validation.
+  // Function specific syntax validation will be deferred to their
+  // respective functions.
+  //
   const decipherLoop = function () {
     userData = [];
-    console.log(userInput);
-    let previousNum = null;
+    let previousEl = null;
     for (let char of userInput) {
       if (isPar(char) && !convertInfix) {
         console.error(`Parenthesis are not allowed in this operation`);
         break;
       }
-
       if (isNumber(char)) {
         //VALID NUM
-
-        //handle first el edge case where previousNum is index -1
-        if (previousNum === null) {
-          previousNum = char;
+        //case with multiple consecutive periods
+        if (char === '.' && previousEl[previousEl.length - 1] === '.') {
+          console.error(
+            `Invalid Syntax. Cannot have 2 or more periods next to each other.`
+          );
+          break;
+        }
+        //handle first el edge case where previousEl is index -1
+        if (previousEl === null) {
+          previousEl = char;
           continue;
         }
-
         //handle case where char is num, previous val is space
-        if (previousNum === ' ') {
-          previousNum = char;
+        if (previousEl === ' ') {
+          previousEl = char;
           continue;
         }
-
-        //handle case with no spaces - previousNum is operator, char is number
-        if (isOperator(previousNum)) {
-          userData.push(previousNum);
-          previousNum = char;
+        //handle case with no spaces - previousEl is operator, char is number
+        if (isOperator(previousEl)) {
+          userData.push(previousEl);
+          previousEl = char;
           continue;
         }
-
         //left decision branch
-        if (!isNaN(previousNum)) {
-          previousNum += char;
+        if (!isNaN(previousEl)) {
+          previousEl += char;
           continue;
         } else {
-          previousNum = char;
+          previousEl = char;
           continue;
         }
       } else if (isValidNonNum(char)) {
         //VALID OPERATOR
-
-        //handle parenthesis in infix -> postfix FIXME:
-        // if (convertInfix) {
-        //   if (isPar(char)) {
-        //     if (previousNum !== ' ' && previousNum !== null) {
-        //       userData.push(previousNum);
-        //     }
-        //     previousNum = char;
-        //     continue;
-        //   }
-        // }
-
         //handle multiple spaces between elements
-        if (char === ' ' && previousNum === ' ') {
+        if (char === ' ' && previousEl === ' ') {
           continue;
         }
-
         //handle leading spaces edge case
-        if (previousNum === null && char === ' ') {
+        if (previousEl === null && char === ' ') {
           continue;
         }
-
         //VALIDATION
         //if prevnum is null, if char is not a parenthesis,
-        if (previousNum === null && !isPar(char)) {
+        if (previousEl === null && !isPar(char)) {
           console.error(`First value cannot be an operator [${char}]`);
           break;
         }
         //also invalid if prev = null, is parenthesis, is not convertInfix
-        if (previousNum === null && isPar(char) && !convertInfix) {
+        if (previousEl === null && isPar(char) && !convertInfix) {
           console.error(`First value cannot be an operator [${char}]`);
           break;
         }
-
         //handles case where there is no space between number and operator
-        if (isOperator(char) && isNumber(previousNum)) {
-          userData.push(parseFloat(previousNum));
-          previousNum = char;
+        if (isOperator(char) && isNumber(previousEl)) {
+          userData.push(parseFloat(previousEl));
+          previousEl = char;
           continue;
         }
-
         if (char === ' ') {
           //parenthesis on end of the string
-          if (isPar(previousNum)) {
-            userData.push(previousNum);
-            previousNum = char;
+          if (isPar(previousEl)) {
+            userData.push(previousEl);
+            previousEl = char;
             continue;
           }
-
-          //handle case where previousNum is an operator
-          if (isOperator(previousNum)) {
-            userData.push(previousNum); //FIXME: possible remove this line (testing)
-            previousNum = char;
+          //handle case where previousEl is an operator
+          if (isOperator(previousEl)) {
+            userData.push(previousEl);
+            previousEl = char;
             continue;
           }
-          previousNum = parseFloat(previousNum);
-          userData.push(previousNum);
-          previousNum = char;
+          previousEl = parseFloat(previousEl);
+          userData.push(previousEl);
+          previousEl = char;
           continue;
         } else {
           if (isOperator(char)) {
-            if (isPar(char) && isOperator(previousNum)) {
-              userData.push(previousNum);
-              previousNum = char;
+            if (isPar(char) && isOperator(previousEl)) {
+              userData.push(previousEl);
+              previousEl = char;
               continue;
             }
-
             //
-            if (isPar(char) && previousNum === ' ') {
-              previousNum = char;
+            if (isPar(char) && previousEl === ' ') {
+              previousEl = char;
               continue;
             }
-
-            if (isPar(char) && previousNum === null) {
-              previousNum = char;
+            if (isPar(char) && previousEl === null) {
+              previousEl = char;
               continue;
             }
-
-            //Not sure what this does? FIXME:
-            if (isPar(char) && !isNaN(previousNum)) {
-              userData.push(parseFloat(previousNum));
-              previousNum = char;
+            if (isPar(char) && !isNaN(previousEl)) {
+              userData.push(parseFloat(previousEl));
+              previousEl = char;
               continue;
             }
-
-            //not sure what this is for. Par and space?
+            //Handles Par and space.
             if (isPar(char)) {
-              previousNum === null ? userData.push(char) : (previousNum = char);
+              previousEl === null ? userData.push(char) : (previousEl = char);
               continue;
             }
-
             //executes whe char is operator and prev is a space
-            if (isOperator(char) && previousNum === ' ') {
-              previousNum = char;
+            if (isOperator(char) && previousEl === ' ') {
+              previousEl = char;
               continue;
             }
-
-            if (isOperator(char) && isPar(previousNum)) {
-              userData.push(previousNum);
-              previousNum = char;
+            if (isOperator(char) && isPar(previousEl)) {
+              userData.push(previousEl);
+              previousEl = char;
               continue;
             }
-
-            if (isOperator(char) && isOperator(previousNum)) {
-              userData.push(previousNum);
-              previousNum = char;
+            if (isOperator(char) && isOperator(previousEl)) {
+              userData.push(previousEl);
+              previousEl = char;
               continue;
             }
-
-            //when previousNum is a multi-digit value and char is an operator
-            userData.push(parseFloat(previousNum));
-            previousNum = char;
+            //when previousEl is a multi-digit value and char is an operator
+            userData.push(parseFloat(previousEl));
+            previousEl = char;
           } else if ((char === '(' || char === ')') && convertInfix) {
             continue;
           } else {
@@ -239,9 +222,84 @@ function App() {
         return;
       }
     }
+    console.log(`DL User Input: ${userInput}`);
+    console.log(`DL User Data: ${userData}`);
 
-    console.log(userData);
+    calculatePostfix(userData);
   };
+
+  /////////////////////////////////////////////
+  //
+  //
+  // Handles converting a string to a data array.
+  // Checks for basic syntax validation.
+  // Function specific syntax validation will be deferred to their
+  // respective functions.
+  //
+  function calculatePostfix(dataArray) {
+    let stack = [];
+    let topEl;
+    let bottomEl;
+    let calcNumResult;
+    let calcString;
+
+    for (let i = 0; i < dataArray.length; i++) {
+      //if its a number
+      if (!isNaN(dataArray[i])) {
+        //Number
+        stack.push(dataArray[i]);
+        continue;
+      } else {
+        //Operand
+
+        //VALIDATION - Verify that there are two elements on stack
+        if (stack.length < 2) {
+          console.error(`Invalid Postfix syntax`);
+          console.error(`CP STACK: ${stack}`);
+        }
+
+        if (i === dataArray.length - 1) {
+          //VALIDATION
+          if (!isNaN(dataArray[i])) {
+            console.error(`Invalid Postfix syntax`);
+            console.error(`CP STACK: ${stack}`);
+          }
+        }
+
+        //CALCULATION
+        topEl = stack.pop();
+        bottomEl = stack.pop();
+        calcString = bottomEl + ' ' + dataArray[i] + ' ' + topEl;
+        console.log(`CP Calculation String: ${calcString}`); //TESTING
+
+        //Select operation based on string operator
+        if (dataArray[i] === '+') {
+          calcNumResult = bottomEl + topEl;
+        } else if (dataArray[i] === '-') {
+          calcNumResult = bottomEl - topEl;
+        } else if (dataArray[i] === '*') {
+          calcNumResult = bottomEl * topEl;
+        } else if (dataArray[i] === '/') {
+          calcNumResult = bottomEl / topEl;
+        } else if (dataArray[i] === '^') {
+          calcNumResult = bottomEl ^ topEl;
+        }
+
+        stack.push(calcNumResult);
+
+        //Last iteration - Print result
+        if (i === dataArray.length - 1) {
+          //VALIDATION
+          if (stack.length > 1) {
+            console.error(`Invalid Postfix syntax`);
+            console.error(`CP STACK: ${stack}`);
+          } else {
+            console.log(`CP Result: ${stack[0]}`);
+          }
+        }
+      }
+    }
+  }
 
   return (
     <div className="App">
