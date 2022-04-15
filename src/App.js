@@ -6,7 +6,7 @@ function App() {
   const year = new Date().getFullYear();
   const [userInput, setUserInput] = useState('');
   var userData = [];
-  let convertInfix = true; //used for validation of parenthesis. Set to true if user is trying to convert Infix -> Postfix TODO: implement functionality to change this value when tabs change
+  let convertInfix = false; //used for validation of parenthesis. Set to true if user is trying to convert Infix -> Postfix TODO: implement functionality to change this value when tabs change
 
   function isNumber(char) {
     if (
@@ -78,6 +78,7 @@ function App() {
   // respective functions.
   //
   const decipherLoop = function () {
+    console.log(`~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~`);
     userData = [];
     let previousEl = null;
     for (let char of userInput) {
@@ -88,11 +89,13 @@ function App() {
       if (isNumber(char)) {
         //VALID NUM
         //case with multiple consecutive periods
-        if (char === '.' && previousEl[previousEl.length - 1] === '.') {
-          console.error(
-            `Invalid Syntax. Cannot have 2 or more periods next to each other.`
-          );
-          break;
+        if (previousEl !== null) {
+          if (char === '.' && previousEl[previousEl.length - 1] === '.') {
+            console.error(
+              `Invalid Syntax. Cannot have 2 or more periods next to each other.`
+            );
+            break;
+          }
         }
         //handle first el edge case where previousEl is index -1
         if (previousEl === null) {
@@ -102,6 +105,11 @@ function App() {
         //handle case where char is num, previous val is space
         if (previousEl === ' ') {
           previousEl = char;
+          continue;
+        }
+        //handle case where there is no zero infront of decimal
+        if (previousEl === '.' && isNumber(char)) {
+          previousEl += char;
           continue;
         }
         //handle case with no spaces - previousEl is operator, char is number
@@ -222,26 +230,26 @@ function App() {
         return;
       }
     }
+
     console.log(`DL User Input: ${userInput}`);
     console.log(`DL User Data: ${userData}`);
 
-    calculatePostfix(userData);
+    calculatePostfix(userData, false);
   };
 
   /////////////////////////////////////////////
+  //calculatePostfix
   //
+  // Calculates/converts a Postfix expression.
+  // Second parameter is boolean, true = calculate | false = convert
   //
-  // Handles converting a string to a data array.
-  // Checks for basic syntax validation.
-  // Function specific syntax validation will be deferred to their
-  // respective functions.
-  //
-  function calculatePostfix(dataArray) {
+  function calculatePostfix(dataArray, calculate) {
     let stack = [];
     let topEl;
     let bottomEl;
     let calcNumResult;
     let calcString;
+    let conversionString;
 
     for (let i = 0; i < dataArray.length; i++) {
       //if its a number
@@ -254,14 +262,16 @@ function App() {
 
         //VALIDATION - Verify that there are two elements on stack
         if (stack.length < 2) {
-          console.error(`Invalid Postfix syntax`);
+          console.error(`Invalid Postfix syntax - Need two elements on Stack`);
           console.error(`CP STACK: ${stack}`);
         }
 
         if (i === dataArray.length - 1) {
           //VALIDATION
           if (!isNaN(dataArray[i])) {
-            console.error(`Invalid Postfix syntax`);
+            console.error(
+              `Invalid Postfix syntax - Last element must be operator`
+            );
             console.error(`CP STACK: ${stack}`);
           }
         }
@@ -269,29 +279,42 @@ function App() {
         //CALCULATION
         topEl = stack.pop();
         bottomEl = stack.pop();
-        calcString = bottomEl + ' ' + dataArray[i] + ' ' + topEl;
-        console.log(`CP Calculation String: ${calcString}`); //TESTING
 
-        //Select operation based on string operator
-        if (dataArray[i] === '+') {
-          calcNumResult = bottomEl + topEl;
-        } else if (dataArray[i] === '-') {
-          calcNumResult = bottomEl - topEl;
-        } else if (dataArray[i] === '*') {
-          calcNumResult = bottomEl * topEl;
-        } else if (dataArray[i] === '/') {
-          calcNumResult = bottomEl / topEl;
-        } else if (dataArray[i] === '^') {
-          calcNumResult = bottomEl ^ topEl;
+        if (calculate) {
+          calcString = bottomEl + ' ' + dataArray[i] + ' ' + topEl;
+          console.log(`CP Calculation String: ${calcString}`); //TESTING
+        } else {
+          conversionString =
+            '(' + bottomEl + ' ' + dataArray[i] + ' ' + topEl + ')';
+          console.log(`CP Conversion String: ${conversionString}`); //TESTING
         }
 
-        stack.push(calcNumResult);
+        //Select operation based on string operator
+        if (calculate) {
+          if (dataArray[i] === '+') {
+            calcNumResult = bottomEl + topEl;
+          } else if (dataArray[i] === '-') {
+            calcNumResult = bottomEl - topEl;
+          } else if (dataArray[i] === '*') {
+            calcNumResult = bottomEl * topEl;
+          } else if (dataArray[i] === '/') {
+            calcNumResult = bottomEl / topEl;
+          } else if (dataArray[i] === '^') {
+            calcNumResult = Math.pow(bottomEl, topEl);
+          }
+
+          stack.push(calcNumResult);
+        } else {
+          stack.push(conversionString);
+        }
 
         //Last iteration - Print result
         if (i === dataArray.length - 1) {
           //VALIDATION
           if (stack.length > 1) {
-            console.error(`Invalid Postfix syntax`);
+            console.error(
+              `Invalid Postfix syntax - Multiple items on stack at end`
+            );
             console.error(`CP STACK: ${stack}`);
           } else {
             console.log(`CP Result: ${stack[0]}`);
