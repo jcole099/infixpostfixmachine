@@ -233,16 +233,18 @@ function App() {
     console.log(`DL User Input: ${userInput}`);
     console.log(`DL User Data: ${userData}`);
 
-    calculatePostfix(userData, false);
+    //calculatePostfix(userData, false);
   };
 
   /////////////////////////////////////////////
   //calculatePostfix
   //
   // Calculates/converts a Postfix expression.
+  // First parameter is an array of data to be converted (numbers and operators)
   // Second parameter is boolean, true = calculate | false = convert
   //
   function calculatePostfix(dataArray, calculate) {
+    //TODO: check 10 5 + 7 - 8 conversion
     let stack = [];
     let topEl;
     let bottomEl;
@@ -255,6 +257,17 @@ function App() {
       if (!isNaN(dataArray[i])) {
         //Number
         stack.push(dataArray[i]);
+        if (i === dataArray.length - 1) {
+          //VALIDATION
+          if (stack.length > 1) {
+            console.error(
+              `Invalid Postfix syntax - Multiple items on stack at end of process`
+            );
+            console.error(`CP STACK: ${stack}`);
+          } else {
+            console.log(`CP Result: ${stack[0]}`);
+          }
+        }
         continue;
       } else {
         //Operand
@@ -312,7 +325,7 @@ function App() {
           //VALIDATION
           if (stack.length > 1) {
             console.error(
-              `Invalid Postfix syntax - Multiple items on stack at end`
+              `Invalid Postfix syntax - Multiple items on stack at end of process`
             );
             console.error(`CP STACK: ${stack}`);
           } else {
