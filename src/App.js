@@ -234,6 +234,7 @@ function App() {
     console.log(`DL User Data: ${userData}`);
 
     //calculatePostfix(userData, false);
+    convertInfix(userData);
   };
 
   /////////////////////////////////////////////
@@ -334,6 +335,107 @@ function App() {
         }
       }
     }
+  }
+
+  function isHigherPrecedence(val1, val2) {
+    //assign number rank to each operator
+    //compare number ranks
+    let val1Rank, val2Rank;
+    if (val1 === '=') val1Rank = 0;
+    if (val2 === '=') val2Rank = 0;
+
+    if (val1 === '(') val1Rank = 1;
+    if (val2 === '(') val2Rank = 1;
+
+    if (val1 === '+') val1Rank = 2;
+    if (val2 === '+') val2Rank = 2;
+
+    if (val1 === '-') val1Rank = 2;
+    if (val2 === '-') val2Rank = 2;
+
+    if (val1 === '*') val1Rank = 3;
+    if (val2 === '*') val2Rank = 3;
+
+    if (val1 === '/') val1Rank = 3;
+    if (val2 === '/') val2Rank = 3;
+
+    if (val1 === '^') val1Rank = 4;
+    if (val2 === '^') val2Rank = 4;
+
+    return val1Rank > val2Rank;
+  }
+
+  function convertInfix(dataArray) {
+    let stack = [];
+    let result = '';
+    let tempVal;
+
+    for (let i = 0; i < dataArray.length - 1; i++) {
+      let currentEl = dataArray[i];
+
+      //End of input?
+      if (i === dataArray.length - 1) {
+        //Validation check #2
+        if (isNaN(currentEl)) {
+          console.error(
+            'Invalid Syntax - cannot have operator at the end of the input (for Infix)'
+          );
+          return;
+        }
+
+        for (let j = 0; j < stack.length - 1; j++) {
+          result += ' ' + stack.pop();
+        }
+        break;
+      }
+
+      //Is an operand?
+      if (!isNaN(currentEl)) {
+        result += ' ' + currentEl;
+        continue;
+      } else {
+        //Is it an opening parenth?
+        if (currentEl === '(') {
+          stack.push(currentEl);
+          continue;
+        } else {
+          if (currentEl === ')') {
+            //loop through stack looking for opening parenth
+            for (let k = stack.length - 1; k > 0; k--) {
+              if (stack[k] === '(') {
+                stack.pop(); //get rid of opening parenth
+                break; //exit inner loop
+              } else {
+                if (k === 0) {
+                  console.error(
+                    `Invalid Syntax - No opening parenthesis found`
+                  );
+                  return;
+                }
+                tempVal = stack.pop();
+                result += ' ' + tempVal;
+              }
+            }
+            continue;
+          } else {
+            //Is currentEl higher precedence than top of the stack?
+            for (let l = stack.length - 1; l > 0; l--) {
+              if (isHigherPrecedence(currentEl, stack[stack.length - 1])) {
+                stack.push(currentEl);
+                break; //exit inner loop
+              } else {
+                tempVal = stack.pop();
+                result += ' ' + tempVal;
+                if (l === 0) {
+                  result += ' ' + currentEl;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    console.log(`CI Result: ${result}`);
   }
 
   return (
