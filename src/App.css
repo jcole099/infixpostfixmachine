@@ -1,25 +1,165 @@
-html, body {
-  background-color: #282c34;
+
+:root {
+  --black: rgb(3, 1, 16);
+  --white: rgb(236, 236, 236);
+  --lightblue: rgba(2, 81, 104,1);
+  --medblue: rgba(0, 45, 58,1);
+  --darkblue: rgba(0, 22, 28,1);
+  --darkgreen: rgb(26, 61, 5);
+}
+
+body {
+  background-color: var(--black);
   box-sizing: border-box;
+  font-size: 16px;
+  padding: 0px;
+  margin: 0px;
+  position: relative;
+  height: 100vh;
+  /* border: 2px solid green; */
 }
 
 .App {
   text-align: center;
-  background-color: #282c34;
-  color: white;
+  background-color: var(--black);
+  color: var(--white);
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  /* border: 1px solid red; */
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: var(--black);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  
 }
 
 .App-main {
-  height: 50vh;
+  margin-top: -2px;
+  position: relative;
+  z-index: 1;
+  flex: 1;
 }
 
+.App-footer {
+  margin-top: 10px;
+  align-content: center;
+  border-top: 1px solid var(--white);
+  width: 100%;
+  padding-top: 20px;
+  padding-bottom: 20px;
+
+}
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* STEPS */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+.steps {
+  width: 550px;
+  background-color: var(--darkgreen);
+  border: 1px solid var(--white);
+  margin: auto;
+}
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* MAIN */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+.App-main h1 {
+  margin: 0px;
+  padding-top: 20px;
+}
+
+.mainform {
+  border: solid 2px var(--white);
+  width: 550px;
+  margin: auto;
+} 
+
+.calcpostfixwindow {
+  background-color: var(--lightblue);
+}
+
+
+.conpostfixwindow {
+  background-color: var(--medblue);
+}
+
+.coninfixwindow {
+  background-color: var(--darkblue);
+}
+
+#userInput {
+  margin: 10px;
+}
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* NAVBAR */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+.navbar {
+  display: flex;
+}
+
+.btn {
+  border-left: solid 2px var(--white);
+  border-top: solid 2px var(--white);
+  border-right: solid 2px var(--white);
+  padding: 10px;
+  margin-left: 5px;
+  margin-right: 5px;
+  align-items: center;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  width: 8rem;
+}
+
+.btn span {
+  pointer-events: none; /* Prevents clicks on text from erroring the activetab function */
+}
+
+.postfixcalculator {
+  background-color: var(--lightblue);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.postfixtoinfix {
+  background-color: var(--medblue);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.infixtopostfix {
+  background-color: var(--darkblue);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.arrow {
+  margin-left: 5px;
+  margin-right: 5px;
+  pointer-events: none;
+}
+
+a {
+  text-decoration: none;
+  color: var(--white);
+}
+
+.gotobottom {
+  z-index: 0;
+}
+
+.gototop {
+  z-index: 2;
+}
