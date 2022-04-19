@@ -1,5 +1,5 @@
-import parser from './../components/parser';
-import convertInfix from './../components/infix';
+import parser from '../components/parser';
+import convertInfix from '../components/infix';
 import React, { useState } from 'react';
 import FunctionDescription from '../components/FunctionDescription';
 import InputForm from '../components/InputForm';

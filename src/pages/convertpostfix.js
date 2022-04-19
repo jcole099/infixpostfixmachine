@@ -1,5 +1,5 @@
-import parser from './../components/parser';
-import calcPostfix from './../components/postfix';
+import parser from '../components/parser';
+import calcPostfix from '../components/postfix';
 import React, { useState } from 'react';
 import FunctionDescription from '../components/FunctionDescription';
 import InputForm from '../components/InputForm';
