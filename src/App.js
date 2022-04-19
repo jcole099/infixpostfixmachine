@@ -23,7 +23,7 @@ function App() {
       </header>
       <main className="App-main">
         <Routes>
-          <Route path="/" exact element={<Calcpostfix />} />
+          <Route path="/infixpostfixmachine" exact element={<Calcpostfix />} />
           <Route path="/postfix2infix" exact element={<Convertpostfix />} />
           <Route path="/infix2postfix" exact element={<Convertinfix />} />
         </Routes>

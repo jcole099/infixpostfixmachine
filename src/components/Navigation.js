@@ -24,7 +24,7 @@ function Navigation() {
 
   return (
     <div className="navbar">
-      <Link to="/">
+      <Link to="/infixpostfixmachine">
         <div
           className="btn postfixcalculator"
           id="postfixcalc"
