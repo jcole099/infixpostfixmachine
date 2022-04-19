@@ -1,3 +1,5 @@
+//TODO: remove the "infixpostfixmachine" from package.json homepage: before submitting files to school
+
 import './App.css';
 
 //Import Dependencies
