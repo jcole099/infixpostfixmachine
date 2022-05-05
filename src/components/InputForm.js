@@ -3,6 +3,9 @@ function InputForm({ setUserInput, startProcess, checkEnter, btnLabel }) {
     document.getElementById('userInput').value = '';
   }
 
+  function cssGrow() {
+    document.getElementById('idSteps').style.height = '200px';
+  }
   return (
     <div className="inputForm">
       <input
@@ -13,7 +16,15 @@ function InputForm({ setUserInput, startProcess, checkEnter, btnLabel }) {
         onKeyPress={checkEnter}
       ></input>
       <br></br>
-      <input type="button" value={btnLabel} onClick={startProcess}></input>
+      <input
+        type="button"
+        value={btnLabel}
+        onClick={() => {
+          startProcess();
+          cssGrow();
+        }}
+        className="convertCalcBtn"
+      ></input>
       <input type="button" value="Clear" onClick={clearText}></input>
       <br></br>
       <br></br>

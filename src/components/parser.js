@@ -174,8 +174,8 @@ function parser(userInput, convertInfix) {
     }
   }
 
-  console.log(`PARSER User Input: ${userInput}`);
-  console.log(`PARSER User Data: ${userData}`);
+  //console.log(`PARSER User Input: ${userInput}`);
+  //console.log(`PARSER User Data: ${userData}`);
   return userData;
 }
 

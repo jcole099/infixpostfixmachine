@@ -63,10 +63,40 @@ body {
   background-color: var(--darkgreen);
   border: 1px solid var(--white);
   margin: auto;
+  height: 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: height 0.5s;
 }
 
 .StepElement {
-  width: 300px;
+  margin-top: 10px;
+  display: flex;
+  width: 500px;
+  border: 3px solid red;
+  justify-content:space-around;
+  align-items: center;
+}
+
+.ChildElement {
+  width: 75px;
+  height: 90px;
+  border: 2px solid red;
+}
+
+.textInformation {
+  display: flex;
+  flex-direction: column;
+}
+
+/* contains 'Stack' and the child element */
+.childOuter {
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+.childOuter i {
+  font-size: 0.75rem;
 }
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
@@ -101,6 +131,10 @@ body {
   margin: 10px;
 }
 
+.convertCalcBtn {
+  margin-right: 10px;
+}
+
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /* NAVBAR */
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
@@ -123,6 +157,10 @@ body {
 
 .btn span {
   pointer-events: none; /* Prevents clicks on text from erroring the activetab function */
+}
+
+.btn:hover {
+  font-weight: 600;
 }
 
 .postfixcalculator {

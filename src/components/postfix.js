@@ -14,6 +14,14 @@ function calculatePostfix(dataArray, calculate) {
   let calcNumResult;
   let calcString;
   let conversionString;
+  let resultArray = [];
+  let stepObject = {
+    userData: null,
+    curIndex: null,
+    displayStackElements: null,
+    curSolution: null,
+    displayTextKey: null,
+  };
 
   for (let i = 0; i < dataArray.length; i++) {
     //if its a number

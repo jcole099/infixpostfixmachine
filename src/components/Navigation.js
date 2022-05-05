@@ -17,6 +17,11 @@ function Navigation() {
     }
   }
 
+  //Hides Steps div, TODO: clear React Elements
+  function resetSteps() {
+    document.getElementById('idSteps').style.height = '0px';
+  }
+
   //This will run once after the component mounts
   useEffect(() => {
     document.getElementById('postfixcalc').classList.add('gototop');
@@ -28,20 +33,37 @@ function Navigation() {
         <div
           className="btn postfixcalculator"
           id="postfixcalc"
-          onClick={activeTab}
+          onClick={(event) => {
+            activeTab(event);
+            resetSteps();
+          }}
         >
           <span>Postfix Calculator</span>
         </div>
       </Link>
       <Link to="/postfix2infix">
-        <div className="btn postfixtoinfix" id="postfixcon" onClick={activeTab}>
+        <div
+          className="btn postfixtoinfix"
+          id="postfixcon"
+          onClick={(event) => {
+            activeTab(event);
+            resetSteps();
+          }}
+        >
           <span>Postfix </span>
           <HiOutlineArrowNarrowRight className="arrow" />
           <span> Infix</span>
         </div>
       </Link>
       <Link to="/infix2postfix">
-        <div className="btn infixtopostfix" id="infixcon" onClick={activeTab}>
+        <div
+          className="btn infixtopostfix"
+          id="infixcon"
+          onClick={(event) => {
+            activeTab(event);
+            resetSteps();
+          }}
+        >
           <span>Infix </span>
           <HiOutlineArrowNarrowRight className="arrow" />
           <span> Postfix</span>
