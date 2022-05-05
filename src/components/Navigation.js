@@ -17,9 +17,11 @@ function Navigation() {
     }
   }
 
-  //Hides Steps div, TODO: clear React Elements
+  //Hides Steps div, TODO: grow div
   function resetSteps() {
     document.getElementById('idSteps').style.height = '0px';
+    document.getElementById('idSteps').style.display = 'none';
+    document.getElementById('idSteps').style.paddingBottom = '0px';
   }
 
   //This will run once after the component mounts

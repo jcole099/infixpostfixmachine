@@ -1,11 +1,17 @@
-function InputForm({ setUserInput, startProcess, checkEnter, btnLabel }) {
+function InputForm({
+  setUserInput,
+  startProcess,
+  checkEnter,
+  btnLabel,
+  cssGrow,
+}) {
   function clearText() {
     document.getElementById('userInput').value = '';
+    document.getElementById('idSteps').style.height = '0px';
+    document.getElementById('idSteps').style.display = 'none';
+    document.getElementById('idSteps').style.paddingBottom = '0px';
   }
 
-  function cssGrow() {
-    document.getElementById('idSteps').style.height = '200px';
-  }
   return (
     <div className="inputForm">
       <input
@@ -21,7 +27,6 @@ function InputForm({ setUserInput, startProcess, checkEnter, btnLabel }) {
         value={btnLabel}
         onClick={() => {
           startProcess();
-          cssGrow();
         }}
         className="convertCalcBtn"
       ></input>

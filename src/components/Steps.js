@@ -1,11 +1,12 @@
 import StepElement from './StepElement';
 //TODO: pass an array of objects to this class, pass #5 stack height seperately
-function Steps() {
+function Steps({ steps, stackHeight }) {
   return (
     <div className="steps" id="idSteps">
       {/* use map method through array */}
-      <StepElement />
-      <h1>TEST</h1>
+      {steps.map((step, i) => (
+        <StepElement step={step} stackHeight={stackHeight} key={i} />
+      ))}
     </div>
   );
 }
