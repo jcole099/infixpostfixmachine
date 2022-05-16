@@ -43,7 +43,7 @@ function StepElement({ step, stackHeight }) {
 
   return (
     <div className="StepElement">
-      <div>
+      <div className="stepNum">
         <h3>Step {step.curIndex + 1}:</h3>
       </div>
 
@@ -60,7 +60,9 @@ function StepElement({ step, stackHeight }) {
       <div className="textInformation">
         <div className="indexContainer">{columns}</div>
         <div className="actionsContainer">{actionText}</div>
-        <div className="actionDescriptionContainer">{actionDescription}</div>
+        <div className="actionDescriptionContainer">
+          <p>{actionDescription}</p>
+        </div>
       </div>
     </div>
   );
