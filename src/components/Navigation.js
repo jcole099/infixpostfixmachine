@@ -26,12 +26,12 @@ function Navigation() {
 
   //This will run once after the component mounts
   useEffect(() => {
-    document.getElementById('postfixcalc').classList.add('gototop');
+    // document.getElementById('postfixcalc').classList.add('gototop'); //removed to prevent tab from always going to the top after refreshes.
   });
 
   return (
     <div className="navbar">
-      <Link to="/">
+      <Link to="/postfixcalc">
         <div
           className="btn postfixcalculator"
           id="postfixcalc"

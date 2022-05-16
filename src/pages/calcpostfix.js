@@ -3,6 +3,7 @@ import calcPostfix from '../components/postfix';
 import React, { useState } from 'react';
 import FunctionDescription from '../components/FunctionDescription';
 import InputForm from '../components/InputForm';
+import Result from '../components/Result';
 
 function Calcpostfix({ setSteps, setStackHeight }) {
   const [userInput, setUserInput] = useState('');
@@ -21,6 +22,12 @@ function Calcpostfix({ setSteps, setStackHeight }) {
       stepResults = calcPostfix(dataArray, true);
       //error checking, stepResults = false if error
       if (stepResults) {
+        //reset answer box to correct color
+        let answerPrompt = document.getElementById('resultPrompt');
+        answerPrompt.textContent = 'Result:';
+        answerPrompt.classList.remove('error');
+        answerPrompt.classList.add('correct');
+
         //TODO: make steps field grow to length of content
         document.getElementById('idSteps').style.display = 'flex';
         document.getElementById('idSteps').style.height = 'auto';
@@ -28,6 +35,12 @@ function Calcpostfix({ setSteps, setStackHeight }) {
 
         setSteps(stepResults[0]);
         setStackHeight(stepResults[1]);
+
+        //display results
+        let resultsArr = stepResults[stepResults.length - 2];
+        let answer = resultsArr[resultsArr.length - 1].action[1];
+        document.getElementById('answer').textContent = answer;
+        console.log(`Result: ${answer}`);
       }
     }
   }
@@ -46,6 +59,7 @@ function Calcpostfix({ setSteps, setStackHeight }) {
           checkEnter={checkEnter}
           btnLabel={'Calculate'}
         />
+        <Result />
       </div>
     </div>
   );

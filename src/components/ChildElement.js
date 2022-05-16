@@ -10,7 +10,6 @@ function ChildElement({ displayStackElements, displayStackHeight }) {
       rows.push(<StackCell num={displayStackElements[i]} key={i} />);
     }
   }
-  console.log(`Stack Height: ${displayStackHeight}`);
   return <div>{rows}</div>;
 }
 

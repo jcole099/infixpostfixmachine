@@ -12,13 +12,14 @@ import Calcpostfix from './pages/Calcpostfix.js';
 import Convertpostfix from './pages/Convertpostfix.js';
 import Convertinfix from './pages/Convertinfix.js';
 import Steps from './components/Steps';
+import Welcome from './pages/Welcome';
 
 //Import Components
 import Header from './components/Header';
 
 function App() {
   const year = new Date().getFullYear();
-  const [steps, setSteps] = useState([]); //for passing information from processing algorithms (calcpostfix, convert...) to Steps form
+  const [steps1, setSteps] = useState([]); //for passing information from processing algorithms (calcpostfix, convert...) to Steps form
   const [stackHeight, setStackHeight] = useState();
 
   return (
@@ -28,8 +29,10 @@ function App() {
       </header>
       <main className="App-main">
         <Routes>
+          <Route path="/infixpostfixmachine" exact element={<Welcome />} />
+          <Route path="/" exact element={<Welcome />} />
           <Route
-            path="/"
+            path="/postfixcalc"
             exact
             element={
               <Calcpostfix
@@ -38,10 +41,19 @@ function App() {
               />
             }
           />
-          <Route path="/postfix2infix" exact element={<Convertpostfix />} />
+          <Route
+            path="/postfix2infix"
+            exact
+            element={
+              <Convertpostfix
+                setSteps={setSteps}
+                setStackHeight={setStackHeight}
+              />
+            }
+          />
           <Route path="/infix2postfix" exact element={<Convertinfix />} />
         </Routes>
-        <Steps steps={steps} stackHeight={stackHeight} />
+        <Steps steps={steps1} stackHeight={stackHeight} />
       </main>
       <footer className="App-footer">
         <span>&copy; {year} James Cole</span>

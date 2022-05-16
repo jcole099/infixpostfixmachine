@@ -12,11 +12,11 @@ function calculatePostfix(dataArray, calculate) {
   let topEl;
   let bottomEl;
   let calcNumResult;
-  let calcString;
   let conversionString;
   let resultArray = [];
   let tempStack = [];
   let stackHeight = 3;
+  let calcString = '';
 
   for (let i = 0; i < dataArray.length; i++) {
     //if its a number
@@ -38,9 +38,8 @@ function calculatePostfix(dataArray, calculate) {
         //VALIDATION
         if (stack.length > 1) {
           displayError(
-            `Invalid Postfix syntax - Multiple items on stack at end of process`
+            `Invalid Postfix syntax. Please check syntax - Multiple items on stack at end of process`
           );
-          displayError(`CP STACK: ${stack}`);
           return false;
         } else {
           //TODO: STEP
@@ -64,8 +63,9 @@ function calculatePostfix(dataArray, calculate) {
 
       //VALIDATION - Verify that there are two elements on stack
       if (stack.length < 2) {
-        displayError(`Invalid Postfix syntax - Need two elements on Stack`);
-        displayError(`CP STACK: ${stack}`);
+        displayError(
+          `Invalid Postfix syntax. Please check syntax - Too many operators or too few operands`
+        );
         return false;
       }
 
@@ -73,9 +73,8 @@ function calculatePostfix(dataArray, calculate) {
         //VALIDATION
         if (!isNaN(dataArray[i])) {
           displayError(
-            `Invalid Postfix syntax - Last element must be operator`
+            `Invalid Postfix syntax. Please check syntax - Last element must be operator`
           );
-          displayError(`CP STACK: ${stack}`);
           return false;
         }
       }
@@ -107,11 +106,11 @@ function calculatePostfix(dataArray, calculate) {
           calcNumResult = Math.pow(bottomEl, topEl);
         }
 
-        calcNumResult = calcNumResult.toFixed(3); //TODO: fix for JS floating point rounding
+        calcNumResult = calcNumResult.toFixed(3); //fix for JS floating point rounding
         calcNumResult = parseFloat(calcNumResult);
         stack.push(calcNumResult);
         //TODO: STEP
-        tempStack = [...stack];
+        tempStack = [...stack]; //deep copies stack
         if (stack.length > stackHeight) stackHeight = stack.length;
         resultArray.push({
           userData: dataArray,
@@ -122,7 +121,18 @@ function calculatePostfix(dataArray, calculate) {
           descriptionTextKey: 2,
         });
       } else {
+        //Pushing a string to the stack (convert postfix 2 infix)
         stack.push(conversionString);
+        tempStack = [...stack]; //deep copies stack
+        if (stack.length > stackHeight) stackHeight = stack.length;
+        resultArray.push({
+          userData: dataArray,
+          curIndex: i,
+          displayStackElements: tempStack,
+          displayStackHeight: stackHeight,
+          action: ['conpush', conversionString],
+          descriptionTextKey: 4,
+        });
       }
 
       //Last iteration - Print result
@@ -130,22 +140,28 @@ function calculatePostfix(dataArray, calculate) {
         //VALIDATION
         if (stack.length > 1) {
           displayError(
-            `Invalid Postfix syntax - Multiple items on stack at end of process`
+            `Invalid Postfix syntax. Please check syntax - Multiple items on stack at end of process`
           );
-          displayError(`CP STACK: ${stack}`);
           return false;
         } else {
           //TODO: STEP
           //RESULTS
           tempStack = [...stack];
           if (stack.length > stackHeight) stackHeight = stack.length;
+
+          //remove outer parenthesis if it is a convert function (improves readability)
+          let tempString = stack[0];
+          if (!calculate) {
+            stack[0] = tempString.slice(1, tempString.length - 1);
+          }
+
           resultArray.push({
             userData: dataArray,
             curIndex: i + 1,
             displayStackElements: tempStack,
             displayStackHeight: stackHeight,
             action: ['sol', stack[0]],
-            descriptionTextKey: 3,
+            descriptionTextKey: 5,
           });
           //console.log(`CP Result: ${stack[0]}`);
         }
@@ -153,7 +169,6 @@ function calculatePostfix(dataArray, calculate) {
     }
   }
   console.log(resultArray);
-  console.log(`stiznack height: ${stackHeight}`);
   return [resultArray, stackHeight];
 }
 

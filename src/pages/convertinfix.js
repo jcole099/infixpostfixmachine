@@ -3,6 +3,7 @@ import convertInfix from '../components/infix';
 import React, { useState } from 'react';
 import FunctionDescription from '../components/FunctionDescription';
 import InputForm from '../components/InputForm';
+import Result from '../components/Result';
 
 function Convertinfix() {
   const [userInput, setUserInput] = useState('');
@@ -33,6 +34,7 @@ function Convertinfix() {
           checkEnter={checkEnter}
           btnLabel={'Convert'}
         />
+        <Result />
       </div>
     </div>
   );
