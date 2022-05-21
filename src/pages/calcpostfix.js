@@ -28,7 +28,7 @@ function Calcpostfix({ setSteps, setStackHeight }) {
         answerPrompt.classList.remove('error');
         answerPrompt.classList.add('correct');
 
-        //TODO: make steps field grow to length of content
+        //make steps field grow to length of content
         document.getElementById('idSteps').style.display = 'flex';
         document.getElementById('idSteps').style.height = 'auto';
         document.getElementById('idSteps').style.paddingBottom = '10px';

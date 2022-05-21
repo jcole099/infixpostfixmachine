@@ -16,7 +16,6 @@ function calculatePostfix(dataArray, calculate) {
   let resultArray = [];
   let tempStack = [];
   let stackHeight = 3;
-  let calcString = '';
 
   for (let i = 0; i < dataArray.length; i++) {
     //if its a number
@@ -32,7 +31,7 @@ function calculatePostfix(dataArray, calculate) {
         displayStackElements: tempStack,
         displayStackHeight: stackHeight,
         action: ['push', dataArray[i]],
-        descriptionTextKey: 1,
+        descriptionTextKey: `The current element in the formula is an operand, therefore we push it to the stack.`,
       });
       if (i === dataArray.length - 1) {
         //VALIDATION
@@ -52,7 +51,7 @@ function calculatePostfix(dataArray, calculate) {
             displayStackElements: tempStack,
             displayStackHeight: stackHeight,
             action: ['sol', stack[0]],
-            descriptionTextKey: 3,
+            descriptionTextKey: `The final element in the formula has been processed, therefore the remaining element on the stack is the solution.`,
           });
           //console.log(`CP Result: ${stack[0]}`);
         }
@@ -83,10 +82,7 @@ function calculatePostfix(dataArray, calculate) {
       topEl = stack.pop();
       bottomEl = stack.pop();
 
-      if (calculate) {
-        calcString = bottomEl + ' ' + dataArray[i] + ' ' + topEl;
-        //console.log(`CP Calculation String: ${calcString}`); //TESTING
-      } else {
+      if (!calculate) {
         conversionString =
           '(' + bottomEl + ' ' + dataArray[i] + ' ' + topEl + ')';
         //console.log(`CP Conversion String: ${conversionString}`); //TESTING
@@ -118,7 +114,7 @@ function calculatePostfix(dataArray, calculate) {
           displayStackElements: tempStack,
           displayStackHeight: stackHeight,
           action: ['calc', bottomEl, topEl, dataArray[i]],
-          descriptionTextKey: 2,
+          descriptionTextKey: `The current element is an operator, therefore we pop the top two operands off of the stack (top operand goes to the right). The operator is placed inbetween the operands and the expression is solved. The solved expression is pushed to the stack.`,
         });
       } else {
         //Pushing a string to the stack (convert postfix 2 infix)
@@ -131,7 +127,7 @@ function calculatePostfix(dataArray, calculate) {
           displayStackElements: tempStack,
           displayStackHeight: stackHeight,
           action: ['conpush', conversionString],
-          descriptionTextKey: 4,
+          descriptionTextKey: `The current element is an operator, therefore we pop the top two elements off of the stack (top element goes to the right). We place the operator inbetween the operands. We also place parentheses around the expression. We push the resulting expression to the stack.`,
         });
       }
 
@@ -161,7 +157,7 @@ function calculatePostfix(dataArray, calculate) {
             displayStackElements: tempStack,
             displayStackHeight: stackHeight,
             action: ['sol', stack[0]],
-            descriptionTextKey: 5,
+            descriptionTextKey: `The final element in the formula has been processed, therefore the remaining element on the stack is the solution. In our result we remove the outer parentheses for easier readability.`,
           });
           //console.log(`CP Result: ${stack[0]}`);
         }

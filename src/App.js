@@ -51,7 +51,8 @@ function App() {
               />
             }
           />
-          <Route path="/infix2postfix" exact element={<Convertinfix />} />
+          <Route path="/infix2postfix" exact element={<Convertinfix setSteps={setSteps}
+                setStackHeight={setStackHeight}/>} />
         </Routes>
         <Steps steps={steps1} stackHeight={stackHeight} />
       </main>

@@ -1,17 +1,32 @@
 import ChildElement from './ChildElement';
 import StepIndexElement from './StepIndexElement';
 import { FaLongArrowAltDown } from 'react-icons/fa';
+import { ImLoop2 } from 'react-icons/im';
+
+
+
 
 function StepElement({ step, stackHeight }) {
   let columns = step.userData.map((el, i) => {
     if (i === step.curIndex) {
-      return (
-        <StepIndexElement
-          el={el}
-          arrow={<FaLongArrowAltDown className="downArrow" />}
-          key={i}
-        />
-      );
+      if (step.loop === true) {
+        //in iterating loop
+        return (
+          <StepIndexElement
+              el={el}
+              arrow={<ImLoop2 className="loopArrow" />}
+              key={i}
+            />
+        );
+      } else {
+        return (
+          <StepIndexElement
+            el={el}
+            arrow={<FaLongArrowAltDown className="downArrow" />}
+            key={i}
+          />
+        );
+      }
     } else {
       return <StepIndexElement el={el} arrow={null} key={i} />;
     }
@@ -27,30 +42,63 @@ function StepElement({ step, stackHeight }) {
       actionText = `Final result: ${step.action[1]}`;
     } else if (step.action[0] === 'conpush') {
       actionText = `Push ${step.action[1]} to stack`;
+    } else if (step.action[0] === 'pushOpenParenth') {
+      actionText = `Push  ${step.action[1]}  to stack`;
+    } else if (step.action[0] === 'removeOpenParenthStack') {
+      actionText = `Pop ( from the stack, exit stack loop`;
+    } else if (step.action[0] === 'operandToResult') {
+      actionText = `Move ${step.action[1]} to the end of the result`;
+    } else if (step.action[0] === 'operatorFromStackToResult') {
+      actionText = `Pop ${step.action[1]} from the stack, move to the end of the result`;
+    } else if (step.action[0] === 'operatorToStack') {
+      actionText = `Push ${step.action[1]} to stack`;
+    } else if (step.action[0] === 'closingParenth') {
+      actionText =  `Discard ) and enter stack loop`;
+    } else if (step.action[0] === 'openingParenthFinal') {
+      actionText =  `Discard ( and keep iterating through stack`;
+    } else if (step.action[0] === 'operatorCheckPrecedence') {
+      actionText =  `Compare ${step.action[1]} with stack precedence, enter precedence checking loop`;
     }
   }
   actions();
 
-  let actionDescription = '';
-  function actionDesc() {
-    if (step.descriptionTextKey === 1) {
-      actionDescription = `The current element in the formula is an operand, therefore we push it to the stack.`;
-    } else if (step.descriptionTextKey === 2) {
-      actionDescription = `The current element is an operator, therefore we pop the top two operands off of the stack (top operand goes to the right). The operator is placed inbetween the operands and the expression is solved. The solved expression is pushed to the stack.`;
-    } else if (step.descriptionTextKey === 3) {
-      actionDescription = `The final element in the formula has been processed, therefore the remaining element on the stack is the solution.`;
-    } else if (step.descriptionTextKey === 4) {
-      actionDescription = `The current element is an operator, therefore we pop the top two elements off of the stack (top element goes to the right). We place the operator inbetween the operands. We also place parentheses around the expression. We push the resulting expression to the stack.`;
-    } else if (step.descriptionTextKey === 5) {
-      actionDescription = `The final element in the formula has been processed, therefore the remaining element on the stack is the solution. In our result we remove the outer parentheses for easier readability.`;
+  function hasSolutionComponent() {
+    //if step has an attribute currentSolution with a value....
+    if (step.currentSolution) {
+      if (typeof(step.currentSolution) === 'object') {
+        return (
+          <div className='solutionMaster'>
+            <div className="solutionPast">Current Solution: {step.currentSolution[0]}</div>
+            <div className="solutionUpdate">{step.currentSolution[1]}</div>
+          </div>
+        );
+      } else {
+        return (
+          <div className="solutionPast">Current Solution: {step.currentSolution}</div>
+        );
+      }
+    } else if (step.infix) {
+      return  <div className="solutionPast">Current Solution: </div>
     }
   }
-  actionDesc();
+
+  function prepareIndex() {
+    if (step.subIndex !== undefined) {
+      let index = step.curIndex + 1;
+      let displayIndex = index + step.subIndex;
+      console.log(`index: ${index}`);
+      console.log(`step.subIndex: ${step.subIndex}`);
+      return displayIndex;
+    } else {
+      return step.curIndex + 1 ;
+    }
+  };
 
   return (
+    
     <div className="StepElement">
       <div className="stepNum">
-        <h3>Step {step.curIndex + 1}:</h3>
+        <h3>Step {prepareIndex()}:</h3>
       </div>
 
       <div className="childOuter">
@@ -67,36 +115,12 @@ function StepElement({ step, stackHeight }) {
         <div className="indexContainer">{columns}</div>
         <div className="actionsContainer">{actionText}</div>
         <div className="actionDescriptionContainer">
-          <p>{actionDescription}</p>
+          <p>{step.descriptionTextKey}</p>
         </div>
+        {hasSolutionComponent()}
       </div>
     </div>
   );
 }
 
 export default StepElement;
-//STEP ATTRIBUTES
-// userData,
-// curIndex,
-// displayStackElements,
-// action,
-// descriptionTextKey,
-
-//POSTFIX CALC
-//Action Key
-//['push', number to push to stack] - 'Push $[num] to stack'
-//['calc', bottomEl, topEl, operator] - 'Calculate ${bottomEl} ${operator} ${topEl} and push the result to the stack'
-//['sol', result] - `Final Result: ${result}`
-
-//Description Key
-// 1 - "The current element in the formula is an operand, therefore we push it to the stack"
-// 2 - "The current element is an operator, therefore we pop the top two operands off of the stack (top operand goes to the right). The operator is placed inbetween the operands and the expression is solved. The solved expression is pushed to the stack."
-// 3 - "The final element in the formula has been processed, therefore the remaining element on the stack is the solution."
-
-//POSTFIX CONVERT
-//Action Key
-//['conpush', consolidated formula to push to stack] - `Push ${num} to stack`
-
-//Description Key
-// 4 - `Pop the top two elements off the stack (top element goes to the right). Place the operator inbetween them. Push the resulting expression to the stack.`
-// 5 - `The final element in the formula has been processed, therefore the remaining element on the stack is the solution. We remove the outer parenthesis for easier readability.`
