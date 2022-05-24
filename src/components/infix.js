@@ -366,7 +366,7 @@ function convertInfixFunc(dataArray) {
             continue; //next outer loop
           }
 
-
+          tempStack = [...stack];
           if (stack.length > stackHeight) stackHeight = stack.length;
           resultArray.push({
             userData: dataArray,
@@ -374,7 +374,7 @@ function convertInfixFunc(dataArray) {
             displayStackElements: tempStack,
             displayStackHeight: stackHeight,
             action: ['operatorCheckPrecedence', currentEl], //currentEl should be currentEl...
-            descriptionTextKey: `The current element is an operator, therefore its precedence is compared against the precedence of the operator at the top of the stack.`,
+            descriptionTextKey: `The current element is an operator, therefore its precedence is compared against the precedence of the operator at the top of the stack. We enter a precedence checking loop.`,
             currentSolution: result,
             subIndex: checkIndex(i),
             infix: true
@@ -404,6 +404,7 @@ function convertInfixFunc(dataArray) {
                 descriptionTextKey: `The current element is an operator and has a HIGHER precedence than the top of the stack. Therefore the current element is pushed to the stack. We exit the inner precedence checking loop.`,
                 currentSolution: result,
                 subIndex: checkIndex(i),
+                loop: true,
                 infix: true
               });
               break; //exit inner loop

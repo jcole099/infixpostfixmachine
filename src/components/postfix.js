@@ -17,13 +17,21 @@ function calculatePostfix(dataArray, calculate) {
   let tempStack = [];
   let stackHeight = 3;
 
+  let yellowVal;
+
   for (let i = 0; i < dataArray.length; i++) {
+    let currentEl = dataArray[i];
     //if its a number
     if (!isNaN(dataArray[i])) {
+      
+      //FIXME: TESTING
+      //for creating the yellow value on the stack, must come before stack.push()
+      yellowVal = currentEl + 'y';
+      tempStack = [...stack];
+      tempStack.push(yellowVal);
       //Number
       stack.push(dataArray[i]);
       //TODO: STEP
-      tempStack = [...stack];
       if (stack.length > stackHeight) stackHeight = stack.length;
       resultArray.push({
         userData: dataArray,
