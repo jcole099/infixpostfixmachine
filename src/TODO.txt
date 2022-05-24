@@ -1,7 +1,3 @@
-add letters to the step process when working on a loop, ex: 5a, 5b etc...
-
-Highlight yellow changes
-
 
 //Infix -> Postfix
 (12/3.24)+19/3.33

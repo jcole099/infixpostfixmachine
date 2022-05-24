@@ -26,8 +26,6 @@ function convertInfixFunc(dataArray) {
       alphaIndex = -1;
       return;
     }
-    
-
   };
   
   let stack = [];

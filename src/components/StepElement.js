@@ -36,8 +36,8 @@ function StepElement({ step, stackHeight }) {
   function actions() {
     if (step.action[0] === 'push') {
       actionText = `Push ${step.action[1]} to stack`;
-    } else if (step.action[0] === 'calc') {
-      actionText = `Calculate ${step.action[1]} ${step.action[3]} ${step.action[2]} and push the result to the stack.`;
+    } else if (step.action[0] === 'calcPush') {
+      actionText = `Push the result of the calculation (${step.action[1]}) to the stack.`;
     } else if (step.action[0] === 'sol') {
       actionText = `Final result: ${step.action[1]}`;
     } else if (step.action[0] === 'conpush') {
@@ -58,6 +58,12 @@ function StepElement({ step, stackHeight }) {
       actionText =  `Discard ( and keep iterating through stack`;
     } else if (step.action[0] === 'operatorCheckPrecedence') {
       actionText =  `Compare ${step.action[1]} with stack precedence, enter precedence checking loop`;
+    } else if (step.action[0] === 'popTwo') {
+      actionText =  `Pop the top two operands "${step.action[1]}" & "${step.action[2]}" from the stack`;
+    } else if (step.action[0] === 'calcTwo') {
+      actionText =  `Calculate the expression ${step.action[1]} ${step.action[3]} ${step.action[2]}`;
+    } else if (step.action[0] === 'concatTwo') {
+      actionText =  `Concatenate elements "${step.action[1]}", "${step.action[2]}", and "${step.action[3]}" to form an expression`;
     }
   }
   actions();
