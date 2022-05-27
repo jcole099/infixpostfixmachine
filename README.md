@@ -1,8 +1,6 @@
 ![IPM Logo](/src/imgs/logo.png)
 # Infix Postfix Machine
-A postfix calculator, postfix convertor, infix convertor for CS469
 
-<h3>About</h3>
 <p>The Infix Postfix Machine essentially does three main functions:</p>
 <ul>
   <li><b>Postfix Calculation</b> - Receives a postfix expression and performs a calculation.</li>
