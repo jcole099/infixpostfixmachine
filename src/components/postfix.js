@@ -148,7 +148,13 @@ function calculatePostfix(dataArray, calculate) {
         } else if (dataArray[i] === '/') {
           calcNumResult = bottomEl / topEl;
         } else if (dataArray[i] === '^') {
-          calcNumResult = Math.pow(bottomEl, topEl);
+          //handles a situation where Math.pow doesn't produce a number when base is negative and exponent is a fraction
+          if (bottomEl < 0) {
+            calcNumResult = Math.pow(-bottomEl, topEl);
+            calcNumResult = calcNumResult * -1;
+          } else {
+            calcNumResult = Math.pow(bottomEl, topEl);
+          }
         }
 
 
