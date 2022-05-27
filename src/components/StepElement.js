@@ -92,8 +92,6 @@ function StepElement({ step, stackHeight }) {
     if (step.subIndex !== undefined) {
       let index = step.curIndex + 1;
       let displayIndex = index + step.subIndex;
-      console.log(`index: ${index}`);
-      console.log(`step.subIndex: ${step.subIndex}`);
       return displayIndex;
     } else {
       return step.curIndex + 1 ;
@@ -112,9 +110,11 @@ function StepElement({ step, stackHeight }) {
           displayStackElements={step.displayStackElements}
           displayStackHeight={stackHeight}
         />
-        <span>
-          <i>Stack</i>
-        </span>
+        <div className='stackText'>
+          <span>
+            <i>Stack</i>
+          </span>
+        </div>
       </div>
 
       <div className="textInformation">

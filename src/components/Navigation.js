@@ -17,7 +17,7 @@ function Navigation() {
     }
   }
 
-  //Hides Steps div, TODO: grow div
+  //Hides Steps div
   function resetSteps() {
     document.getElementById('idSteps').style.height = '0px';
     document.getElementById('idSteps').style.display = 'none';

@@ -4,7 +4,7 @@
   --lightblue: rgb(0, 135, 176);
   --medblue: rgb(0, 84, 108);
   --darkblue: rgb(0, 53, 67);
-  --darkgreen: rgb(26, 61, 5);
+  --darkgreen: rgb(15, 41, 0);
 }
 
 body {
@@ -16,6 +16,11 @@ body {
   position: relative;
   height: 100vh;
   /* border: 2px solid green; */
+}
+
+img {
+  max-width: 750px;
+  margin-left: 50px;
 }
 
 .App {
@@ -63,6 +68,22 @@ h4 {
   padding: 0px;
 }
 
+.tes {
+  height: 100px;
+  margin-left: -130px;
+}
+
+.logoTitle2 {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logoTitle2 h2 {
+  margin-left: 30px;
+}
+
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /* STEPS */
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
@@ -84,7 +105,7 @@ h4 {
   display: flex;
   width: 850px;
   border: 3px solid rgb(44, 188, 0);
-  justify-content: space-around;
+  /* justify-content: space-around; */
   align-items: center;
 }
 
@@ -100,18 +121,20 @@ h4 {
   margin-bottom: 5px;
 }
 
-.childOuter i {
-  font-size: 0.75rem;
+.stackText {
+  /* font-size: 0.75rem; */
+  margin-top: 5px;
 }
 
 .textCell {
   background-color: rgb(0, 0, 0);
   border: 1.5px solid rgb(74, 74, 74);
   color: rgb(255, 255, 255);
-  min-width: 75px;
+  min-width: 125px;
   height: 25px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
   padding-left: 5px;
   padding-right: 5px;
@@ -131,6 +154,7 @@ h4 {
 .indexContainer {
   display: flex;
   flex-direction: row;
+  margin-left: -8px;
 }
 
 .elCell {
@@ -154,24 +178,29 @@ h4 {
 
 .elDiv {
   height: 20px;
+  text-align: center;
 }
 
 .actionDescriptionContainer {
-  height: 100px;
+  /* height: 100px; */
 }
 
 .stepNum {
   width: 100px;
+  margin-left: 20px;
+  margin-right: 20px;
 }
 
 .textInformation {
+  margin-left: 20px;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: left;
   white-space: normal;
   /* border: 2px solid rgb(188, 195, 0); */
-  width: 500px;
+  width: 520px;
   padding: 10px;
+  text-align: left;
 }
 
 .actionsContainer {
@@ -254,6 +283,36 @@ h4 {
   display: flex;
 }
 
+.about {
+  text-align: left;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.titleAbout {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.aboutQuestionMark {
+  margin-right: 20px;
+  font-size: 30px;
+}
+
+.subTitle {
+  margin-left: 45px;
+}
+
+.aboutLink {
+  text-decoration: underline;
+}
+
+.techUsed {
+  margin-top: 20px;
+}
+
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /* NAVBAR */
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
@@ -314,8 +373,8 @@ h4 {
 }
 
 a {
-  text-decoration: none;
   color: var(--white);
+  text-decoration: none;
 }
 
 .gotobottom {
@@ -329,4 +388,20 @@ a {
 /* for testing */
 .hide {
   display: none;
+}
+
+.font16 {
+  font-size: 16px;
+}
+
+.font12 {
+  font-size: 12px;
+}
+
+.font10 {
+  font-size: 10px;
+}
+
+.font8 {
+  font-size: 8px;
 }

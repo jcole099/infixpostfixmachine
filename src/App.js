@@ -13,6 +13,7 @@ import Convertpostfix from './pages/Convertpostfix.js';
 import Convertinfix from './pages/Convertinfix.js';
 import Steps from './components/Steps';
 import Welcome from './pages/Welcome';
+import About from './pages/About';
 
 //Import Components
 import Header from './components/Header';
@@ -31,6 +32,7 @@ function App() {
         <Routes>
           <Route path="/infixpostfixmachine" exact element={<Welcome />} />
           <Route path="/" exact element={<Welcome />} />
+          <Route path="/about" exact element={<About />} />
           <Route
             path="/postfixcalc"
             exact
