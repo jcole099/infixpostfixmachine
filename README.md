@@ -10,7 +10,7 @@
 <p>In addition to performing these calculations and conversions, the Infix Postfix Machine also performs a step-by-step breakdown of each component of the process. This functionality is meant to serve as a learning aid.</p>
 <p>The Infix Postfix Machine does have some limitations. These limitations are listed on each of the function's pages. For example, the postfix calculator can only handle the following operators: +, -, *, /, and ^. Please see each function's page for more details on input limitations.</p>
 <p>The three functions use what is called "The Stack Method" to perform the calculations and conversions. I must give credit to Instructor Stephen Redfield and Instructor Eric Vogel at Oregon State University for introducing these concepts/methods to me.</p>
-<p>The following section displays the flowcharts used in each of the processes.</p>
+
 <h4 className='techUsed'>Technologies used:</h4>
 <ul>
   <li>Javascript</li>
