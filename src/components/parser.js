@@ -18,7 +18,7 @@ function parser(userInput, convertInfix) {
   let userData = [];
   let previousEl = null;
 
-  if (userInput === '') {
+  if (userInput === '' || userInput === ' ') {
     displayError(`Must include an input to process`);
     return false;
   }
