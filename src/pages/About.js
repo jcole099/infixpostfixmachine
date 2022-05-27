@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import postfixCalcImg from '../imgs/postfixcalc.png';
 import postfixConImg from '../imgs/postfixtoinfix.png';
 import infixConImg from '../imgs/infixtopostfix.png';
@@ -51,11 +51,11 @@ function About() {
         </ul>
         <h4 className='techUsed'>Flowcharts:</h4>
         <p>Postfix Calculation</p>
-        <img src={postfixCalcImg} alt="Postfix calculation flowchat"></img>
+        <img src={postfixCalcImg} alt="Postfix calculation flowchart"></img>
         <p>Postfix to Infix Conversion</p>
         <img src={postfixConImg} alt="Postfix conversion flowchart"></img>
         <p>Infix to Postfix Conversion</p>
-        <img src={infixConImg} alt="Infix conversion flowchat"></img>      
+        <img src={infixConImg} alt="Infix conversion flowchart"></img>      
       </div>
     </div>
   );
