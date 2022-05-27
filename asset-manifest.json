@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/infixpostfixmachine/static/css/main.3eb4e87c.css",
-    "main.js": "/infixpostfixmachine/static/js/main.9314c3e9.js",
+    "main.js": "/infixpostfixmachine/static/js/main.5542d152.js",
     "static/js/787.b14c9f7c.chunk.js": "/infixpostfixmachine/static/js/787.b14c9f7c.chunk.js",
     "static/media/postfixtoinfix.png": "/infixpostfixmachine/static/media/postfixtoinfix.8c27439349a95316d0ac.png",
     "static/media/infixtopostfix.png": "/infixpostfixmachine/static/media/infixtopostfix.f41a07d57d358ae984f2.png",
@@ -9,11 +9,11 @@
     "static/media/logo.png": "/infixpostfixmachine/static/media/logo.84bff7b9f7241eed90f0.png",
     "index.html": "/infixpostfixmachine/index.html",
     "main.3eb4e87c.css.map": "/infixpostfixmachine/static/css/main.3eb4e87c.css.map",
-    "main.9314c3e9.js.map": "/infixpostfixmachine/static/js/main.9314c3e9.js.map",
+    "main.5542d152.js.map": "/infixpostfixmachine/static/js/main.5542d152.js.map",
     "787.b14c9f7c.chunk.js.map": "/infixpostfixmachine/static/js/787.b14c9f7c.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.3eb4e87c.css",
-    "static/js/main.9314c3e9.js"
+    "static/js/main.5542d152.js"
   ]
 }
