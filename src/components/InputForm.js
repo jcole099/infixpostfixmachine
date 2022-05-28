@@ -10,6 +10,7 @@ function InputForm({
     document.getElementById('idSteps').style.height = '0px';
     document.getElementById('idSteps').style.display = 'none';
     document.getElementById('idSteps').style.paddingBottom = '0px';
+    document.getElementById('answer').textContent = '';
   }
 
   return (
