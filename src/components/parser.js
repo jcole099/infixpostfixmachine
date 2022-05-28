@@ -1,5 +1,5 @@
 import displayError from './displayerror';
-import { isPar, isNumber, isOperator, isValidNonNum } from './validation';
+import { isPar, isNumber, isOperator, isValidNonNum, isSub } from './validation';
 
 /////////////////////////////////////////////
 // parser
@@ -22,8 +22,11 @@ function parser(userInput, convertInfix) {
     displayError(`Must include an input to process`);
     return false;
   }
-
-  for (let char of userInput) {
+  let char;
+  let dataIndex = -1;
+  let isNeg = false;
+  for (let index in userInput) {
+    char = userInput[index];
     if (isPar(char) && !convertInfix) {
       displayError(`Parenthesis are not allowed in this operation`);
       return false;
@@ -31,6 +34,13 @@ function parser(userInput, convertInfix) {
     if (isNumber(char)) {
       //VALID NUM
       //case with multiple consecutive periods
+
+      //FIXME: only set neg if - is followed by a number
+      if (isNeg && isNumber(char)) {
+        previousEl = char;
+        continue;
+      }
+
       if (previousEl !== null) {
         if (char === '.' && previousEl[previousEl.length - 1] === '.') {
           displayError(
@@ -54,9 +64,19 @@ function parser(userInput, convertInfix) {
         previousEl += char;
         continue;
       }
+      
+      //FIXME:
+      if (!isNaN(userData[dataIndex]) && isOperator(previousEl) && isNumber(char)) {
+        isNeg = true;
+        previousEl = char;
+        continue;
+      } 
+
+
       //handle case with no spaces - previousEl is operator, char is number
       if (isOperator(previousEl)) {
         userData.push(previousEl);
+        dataIndex++;
         previousEl = char;
         continue;
       }
@@ -70,6 +90,31 @@ function parser(userInput, convertInfix) {
       }
     } else if (isValidNonNum(char)) {
       //VALID OPERATOR
+
+      //FIXME: previousEl is num, current an operator
+      if (previousEl !== ' ' && !isNaN(previousEl) && isNeg) {
+        userData.push(previousEl * -1);
+        dataIndex++;
+        previousEl = char;
+        if (!isSub(char)) {
+          isNeg = false;
+        }
+        continue;
+      }
+
+      //FIXME: 3 consecutive operators
+      // if (isNeg && isSub(char)) {
+      //   displayError('Too many consecutive operators, at least 3');
+      //   return false;
+      // }
+
+      //FIXME: previousEl is operator, current El is operator
+      // if (isOperator(userData[dataIndex]) && isSub(char)) {
+      //   isNeg = true;
+      //   previousEl = char;
+      //   continue;
+      // }
+
       //handle multiple spaces between elements
       if (char === ' ' && previousEl === ' ') {
         continue;
@@ -80,18 +125,19 @@ function parser(userInput, convertInfix) {
       }
       //VALIDATION
       //if prevnum is null, if char is not a parenthesis,
-      if (previousEl === null && !isPar(char)) {
+      if (previousEl === null && !isPar(char) && !isSub(char)) {
         displayError(`First value cannot be an operator [${char}]`);
         return false;
       }
       //also invalid if prev = null, is parenthesis, is not convertInfix
-      if (previousEl === null && isPar(char) && !convertInfix) {
+      if (previousEl === null && isPar(char) && !convertInfix && !isSub(char)) {
         displayError(`First value cannot be an operator [${char}]`);
         return false;
       }
       //handles case where there is no space between number and operator
       if (isOperator(char) && isNumber(previousEl)) {
         userData.push(parseFloat(previousEl));
+        dataIndex++;
         previousEl = char;
         continue;
       }
@@ -99,23 +145,40 @@ function parser(userInput, convertInfix) {
         //parenthesis on end of the string
         if (isPar(previousEl)) {
           userData.push(previousEl);
+          dataIndex++;
           previousEl = char;
           continue;
         }
+
+        //FIXME: 
+        if (parseInt(index) === userInput.length - 1 && isSub(previousEl)) {
+          userData.push(previousEl);
+          continue;
+        }
+
+        //FIXME:
+        if (isSub(previousEl)) {
+          continue;
+        }
+
+
         //handle case where previousEl is an operator
         if (isOperator(previousEl)) {
           userData.push(previousEl);
+          dataIndex++;
           previousEl = char;
           continue;
         }
         previousEl = parseFloat(previousEl);
         userData.push(previousEl);
+        dataIndex++;
         previousEl = char;
         continue;
       } else {
         if (isOperator(char)) {
           if (isPar(char) && isOperator(previousEl)) {
             userData.push(previousEl);
+            dataIndex++;
             previousEl = char;
             continue;
           }
@@ -130,6 +193,7 @@ function parser(userInput, convertInfix) {
           }
           if (isPar(char) && !isNaN(previousEl)) {
             userData.push(parseFloat(previousEl));
+            dataIndex++;
             previousEl = char;
             continue;
           }
@@ -138,6 +202,14 @@ function parser(userInput, convertInfix) {
             previousEl === null ? userData.push(char) : (previousEl = char);
             continue;
           }
+
+          //FIXME:
+          if (isSub(char) && previousEl === ' ') {
+            isNeg = true;
+            previousEl = char;
+            continue;
+          }
+
           //executes whe char is operator and prev is a space
           if (isOperator(char) && previousEl === ' ') {
             previousEl = char;
@@ -145,11 +217,43 @@ function parser(userInput, convertInfix) {
           }
           if (isOperator(char) && isPar(previousEl)) {
             userData.push(previousEl);
+            dataIndex++;
             previousEl = char;
             continue;
           }
+          //FIXME: consecutive operators
+          if (isOperator(previousEl) && isOperator(char)) {
+            userData.push(previousEl);
+            dataIndex++;
+            if (!isSub(char)) {
+              isNeg = false;
+            } else {
+              isNeg = true;
+            }
+            previousEl = char;
+            continue;
+          }
+
+
+
+          //FIXME: previousEl = operator, char = sub
+          if (isOperator(previousEl) && isSub(char)) {
+            userData.push(previousEl);
+            dataIndex++;
+            previousEl = char;
+            isNeg = true;
+            continue;
+          }
+
           if (isOperator(char) && isOperator(previousEl)) {
             userData.push(previousEl);
+            dataIndex++;
+            previousEl = char;
+            continue;
+          }
+          //FIXME: First el is a subtraction
+          if (isSub(char)) {
+            isNeg = true;
             previousEl = char;
             continue;
           }

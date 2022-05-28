@@ -73,6 +73,14 @@ function isPar(char) {
   }
 }
 
+function isSub(char) {
+  if (char === '-') {
+    return true;
+  } else {
+    return false;
+  }
+}
+
 function isHigherPrecedence(val1, val2) {
   //assign number rank to each operator
   //compare number ranks
@@ -180,4 +188,5 @@ export {
   hasConsecutiveOperators,
   hasConsecutiveNumbers,
   isAttemptingImpliedMultiplication,
+  isSub,
 };
