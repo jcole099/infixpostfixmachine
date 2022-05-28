@@ -49,8 +49,13 @@ function Convertinfix({ setSteps, setStackHeight }) {
         //   finalAnswer = answer;
         // }
         let answer = resultsArr[resultsArr.length - 1].currentSolution;
-        let finalAnswer = answer[0] + ' ' + answer[1];
-        
+        let finalAnswer;
+        if (typeof(answer) === 'object') {
+          finalAnswer = answer[0] + ' ' + answer[1];
+        } else {
+          finalAnswer = answer;
+        }
+
         document.getElementById('answer').textContent = finalAnswer;
         console.log(`Result: ${finalAnswer}`);
       }
@@ -62,7 +67,7 @@ function Convertinfix({ setSteps, setStackHeight }) {
       <div className="mainform coninfixwindow">
         <FunctionDescription
           subtitle={'Convert Infix to Postfix'}
-          allowedOperators={' + - * / ^ ( )'}
+          allowedOperators={' + - * / ( )'}
           allowedNumbers={'Integers, Floats'}
         />
         <InputForm

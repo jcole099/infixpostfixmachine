@@ -50,7 +50,7 @@ function Calcpostfix({ setSteps, setStackHeight }) {
       <div className="mainform calcpostfixwindow">
         <FunctionDescription
           subtitle={'Calculate Postfix'}
-          allowedOperators={' + - * / ^'}
+          allowedOperators={' + - * /'}
           allowedNumbers={'Integers, Floats'}
         />
         <InputForm

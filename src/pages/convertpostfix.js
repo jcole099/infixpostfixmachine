@@ -50,7 +50,7 @@ function Convertpostfix({ setSteps, setStackHeight }) {
       <div className="mainform conpostfixwindow" id="contest">
         <FunctionDescription
           subtitle={'Convert Postfix to Infix'}
-          allowedOperators={' + - * / ^'}
+          allowedOperators={' + - * /'}
           allowedNumbers={'Integers, Floats'}
         />
         <InputForm

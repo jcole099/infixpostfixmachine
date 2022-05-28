@@ -24,7 +24,6 @@ function isValidNonNum(char) {
     char === '-' ||
     char === '*' ||
     char === '/' ||
-    char === '^' ||
     char === '(' ||
     char === ')' ||
     char === ' '
@@ -41,7 +40,6 @@ function isOperator(char) {
     char === '-' ||
     char === '*' ||
     char === '/' ||
-    char === '^' ||
     char === '(' ||
     char === ')'
   ) {
@@ -56,8 +54,7 @@ function isStrictOperator(char) {
     char === '+' ||
     char === '-' ||
     char === '*' ||
-    char === '/' ||
-    char === '^'
+    char === '/'
   ) {
     return true;
   } else {
