@@ -68,7 +68,6 @@ function App() {
 			</main>
 			<footer className="App-footer">
 				<span>&copy; {year} James Cole</span>
-				<p>tester</p>
 			</footer>
 		</div>
 	);
