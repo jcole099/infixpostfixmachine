@@ -433,6 +433,7 @@ a {
     width: 355px;
   }
   .StepElement {
+    padding-top: 20px;
     width: 350px;
     flex-direction: column;
 

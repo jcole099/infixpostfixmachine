@@ -1,5 +1,10 @@
-![IPM Logo](/src/imgs/logo.png)
 # Infix Postfix Machine
+
+A React application that calculates postfix notation, converts postfix notation to infix, and converts infix notation to postfix.
+
+---
+
+### Description
 
 <p>The Infix Postfix Machine essentially does three main functions:</p>
 <ul>
@@ -11,7 +16,8 @@
 <p>The Infix Postfix Machine does have some limitations. These limitations are listed on each of the function's pages. For example, the postfix calculator can only handle the following operators: +, -, *, and /. Additionally, the postfix calculation rounds to the ninth decimal place. Please see each function's page for more details on input limitations.</p>
 <p>The three functions use what is called "The Stack Method" to perform the calculations and conversions. I must give credit to Instructor Stephen Redfield and Instructor Eric Vogel at Oregon State University for introducing these concepts/methods to me.</p>
 
-<h4 className='techUsed'>Technologies used:</h4>
+Technologies used:
+
 <ul>
   <li>Javascript</li>
   <li>React JS</li>
@@ -22,7 +28,27 @@
   <li>Visual Studio Code</li>
   <li>GIMP Image Editor</li>
 </ul>
-<h4 className='techUsed'>Flowcharts:</h4>
+
+---
+
+### Setup
+
+1. Install the dependencies using `npm install` in the project root directory.
+2. Run the application: `npm start`
+
+---
+
+### Details
+
+Website: [Infix Postfix Machine](https://ipm.jcole.net)
+Author: [James Cole](https://jcole.net)  
+Date: 06/02/22  
+License: MIT
+
+---
+
+### Flowcharts
+
 <p>Postfix Calculation</p>
 
 ![Postfix calculation flowchart](/src/imgs/postfixcalc.png)
