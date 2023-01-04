@@ -8,9 +8,9 @@ import { Routes, Route } from 'react-router-dom';
 import { useState } from 'react';
 
 //Import Pages
-import Calcpostfix from './pages/Calcpostfix.js';
-import Convertpostfix from './pages/Convertpostfix.js';
-import Convertinfix from './pages/Convertinfix.js';
+import Calcpostfix from './pages/calcpostfix.js';
+import Convertpostfix from './pages/convertpostfix.js';
+import Convertinfix from './pages/convertinfix.js';
 import Steps from './components/Steps';
 import Welcome from './pages/Welcome';
 import About from './pages/About';
