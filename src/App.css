@@ -417,6 +417,12 @@ a {
     height: 400px;
     margin-left: 0px;
   }
+  .tes {
+    display: none;
+  }
+  .logoTitle2 h2 {
+  margin-left: 0px;
+}
 }
 
 @media (max-width: 620px) {
