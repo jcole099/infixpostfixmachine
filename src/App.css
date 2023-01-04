@@ -402,3 +402,52 @@ a {
 .font8 {
   font-size: 8px;
 }
+
+@media (max-width: 936px) {
+  .mainform {
+    width: 600px;
+  }
+  .steps1 {
+    width: 600px;
+  }
+  .StepElement {
+    width: 550px;
+  }
+  .flowCharts img {
+    height: 400px;
+    margin-left: 0px;
+  }
+}
+
+@media (max-width: 620px) {
+  .mainform {
+    width: 355px;
+  }
+  .steps1 {
+    width: 355px;
+  }
+  .StepElement {
+    width: 350px;
+    flex-direction: column;
+
+  }
+  .textInformation {
+    width: 330px;
+    margin-left: 0px;
+    align-items: center;
+  }
+  #userInput {
+    width: 90%;
+  }
+  .btn {
+    width: 6rem;
+    height: 4rem;
+    padding: 5px;
+  }
+  .flowCharts {
+    display: none;
+  }
+  .about {
+    margin-bottom: 30px;
+  }
+}
